@@ -34,8 +34,14 @@ app.prepare().then(()=>{
             ],
             afterAuth(ctx){
                 const { shop, accessToken } = ctx.session;
-                ctx.cookies.set('shopOrigin', shop, { httpOnly: false });
-                ctx.cookies.set('accessToken', accessToken, { httpOnly: false });
+                ctx.cookies.set('shopOrigin', shop, { 
+                    httpOnly: false,
+                    secure: true,
+                    sameSite: 'none'
+                });
+
+
+                //ctx.cookies.set('accessToken', accessToken, { httpOnly: false });
 
                 ctx.redirect('/');
             }
