@@ -18,7 +18,7 @@ class MyApp extends App {
         return (
             <React.Fragment>
                 <Head>
-                    <title>Fernando App</title>
+                    <title>Shopify App</title>
                     <meta charSet="utf-8" />
                 </Head>
 

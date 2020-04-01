@@ -16,7 +16,6 @@ const Index = () => {
     
     return (
         <Page>
-
             <TitleBar
                 primaryAction={{
                     content: 'Hola soy un primary actions'
@@ -44,10 +43,7 @@ const Index = () => {
             </Layout>
 
             <FooterHelp>
-            Soy Fernando{' '}
-            <Link url="https://help.shopify.com/manual/orders/fulfill-orders">
-                Castillo
-            </Link>
+            Soy el footer
             </FooterHelp>
         </Page>    
     )
