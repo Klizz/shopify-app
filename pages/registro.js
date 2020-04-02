@@ -21,21 +21,27 @@ class Registro extends Component {
           card: '',
           phone: ''
         };
+        this.handleStoreChange = this.handleStoreChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleCardChange = this.handleCardChange.bind(this);
+        this.handlePhoneChange = this.handlePhoneChange.bind(this);
       }
-      handleInput = (event) => {
-        let storev = event.target.store;
-        let emailv = event.target.email;
-        let namev = event.target.name;
-        let cardv = event.target.card;
-        let phonev = event.target.phone;
-        let val = event.target.value;
-        this.setState({
-            [storev]: val,
-            [emailv]: val,
-            [namev]: val,
-            [cardv]: val,
-            [phonev]: val
-        });
+
+      handleStoreChange (e) {
+        this.setState({ store: e.target.value });
+      }
+      handleEmailChange (e) {
+        this.setState({ email: e.target.value });
+      }
+      handleNameChange (e) {
+        this.setState({ name: e.target.value });
+      }
+      handleCardChange (e) {
+        this.setState({ card: e.target.value });
+      }
+      handlePhoneChange (e) {
+        this.setState({ phone: e.target.value });
       }
 
   /* handleSubmit = e => {
@@ -67,32 +73,32 @@ class Registro extends Component {
                   label="Nombre de la tienda"
                   type="text"
                   name="store"
-                  onChange={this.handleInput}
+                  onChange={this.handleStoreChange}
                 />
                 <TextField
                   label="Email"
                   type="email"
                   name="email"
-                  onChange={this.handleInput}
+                  onChange={this.handleEmailChange}
                 />
                 <TextField
                   label="Nombre del representante legal"
                   type="text"
                   name="name"
-                  onChange={this.handleInput}
+                  onChange={this.handleNameChange}
                 />
                 <TextField
                   label="Tarjeta de credito"
                   type="text"
                   name="card"
                   helpText="Opcional"
-                  onChange={this.handleInput}
+                  onChange={this.handleCardChange}
                 />
                 <TextField
                   label="Telefono"
                   type="tel"
                   name="phone"
-                  onChange={this.handleInput}
+                  onChange={this.handlePhoneChange}
                   // handleChange={this.handleInput}
                 />
                 <Button action={this.handleSubmit}>Guardar</Button>
