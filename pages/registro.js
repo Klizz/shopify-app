@@ -12,26 +12,31 @@ import { TitleBar, ResourcePicker } from "@shopify/app-bridge-react";
 import { useState, Component } from "react";
 
 class Registro extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      store: "",
-      email: "",
-      name: "",
-      card: "",
-      phone: ""
-    };
-  }
-
-  handleInput = e => {
-    this.setState({
-      store: e.target.value,
-      email: e.target.value,
-      name: e.target.value,
-      card: e.target.value,
-      phone: e.target.value
-    });
-  };
+    constructor(props) {
+        super(props);
+        this.state = {
+          store: '',
+          email: '',
+          name: '',
+          card: '',
+          phone: ''
+        };
+      }
+      handleInput = (event) => {
+        let storev = event.target.store;
+        let emailv = event.target.email;
+        let namev = event.target.name;
+        let cardv = event.target.card;
+        let phonev = event.target.phone;
+        let val = event.target.value;
+        this.setState({
+            [storev]: val,
+            [emailv]: val,
+            [namev]: val,
+            [cardv]: val,
+            [phonev]: val
+        });
+      }
 
   /* handleSubmit = e => {
     e.preventDefault();
@@ -61,27 +66,32 @@ class Registro extends Component {
                 <TextField
                   label="Nombre de la tienda"
                   type="text"
+                  name="store"
                   onChange={this.handleInput}
                 />
                 <TextField
                   label="Email"
                   type="email"
+                  name="email"
                   onChange={this.handleInput}
                 />
                 <TextField
                   label="Nombre del representante legal"
                   type="text"
+                  name="name"
                   onChange={this.handleInput}
                 />
                 <TextField
                   label="Tarjeta de credito"
                   type="text"
+                  name="card"
                   helpText="Opcional"
                   onChange={this.handleInput}
                 />
                 <TextField
                   label="Telefono"
                   type="tel"
+                  name="phone"
                   onChange={this.handleInput}
                   // handleChange={this.handleInput}
                 />
