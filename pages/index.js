@@ -7,11 +7,21 @@ import {
   Link
 } from "@shopify/polaris";
 import { TitleBar, ResourcePicker } from "@shopify/app-bridge-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Axios from "axios";
 
 const img = "https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg";
 
 const Index = () => {
+  useEffect(() => {
+    Axios.get('api/prueba')
+    .then(res=>{
+      console.log('res', res)
+    }, err =>{
+      console.log('err', err)
+    })
+  }, [])
+
   const [open, setOpen] = useState(false);
 
   const handleSelection = resources => {
@@ -22,6 +32,7 @@ const Index = () => {
     <Page>
         <Link><a href="otro_layout">Otro layout</a></Link>
         <Link><a href="home">Home</a></Link>
+        <Link><a href="h4982">Home</a></Link>
       <TitleBar
         primaryAction={{
           content: "Hola soy un primary actions"
