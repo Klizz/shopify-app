@@ -37,7 +37,7 @@ app.prepare().then(() => {
           secure: true,
           sameSite: "none"
         });
-        ctx.cookies.set("acessToken", accessToken, {
+        ctx.cookies.set("accessToken", accessToken, {
           httpOnly: false,
           secure: true,
           sameSite: "none"

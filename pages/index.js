@@ -14,11 +14,11 @@ const img = "https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg";
 
 const Index = () => {
   useEffect(() => {
-    Axios.get('api/prueba')
-    .then(res=>{
-      console.log('res', res)
-    }, err =>{
-      console.log('err', err)
+    Axios.get('api/shopify')
+    .then(response =>{
+      console.log('res', response)
+    }, error =>{
+      console.log('Error', error)
     })
   }, [])
 
@@ -32,7 +32,7 @@ const Index = () => {
     <Page>
         <Link><a href="otro_layout">Otro layout</a></Link>
         <Link><a href="home">Home</a></Link>
-        <Link><a href="h4982">Home</a></Link>
+        <Link><a href="shopify">shopify</a></Link>
       <TitleBar
         primaryAction={{
           content: "Hola soy un primary actions"
