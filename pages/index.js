@@ -14,9 +14,23 @@ const img = "https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg";
 
 const Index = () => {
   useEffect(() => {
-    Axios.get('api/shopify')
+    const axiosMongo = axios.create({
+      baseURL: 'http://localhost:3001/api/v1',
+      timeout: 2000
+    })
+    axios.get('api/shopify')
     .then(response =>{
-      console.log('res', response)
+      console.log('Exitoso', response)
+      axiosMongo.get(`/store/${response.data.shot.id}`)
+        .then(response2 => {
+          console.log('tienda existente', response2)
+        }, error2 => {
+          if(error2.response.status===400) {
+            console.log('tienda no encontrada', error2)
+          } else {
+            console.log('error mongo', error2)
+          }
+        })
     }, error =>{
       console.log('Error', error)
     })
