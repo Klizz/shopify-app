@@ -18,6 +18,8 @@ const shopifystoreReducer = ( state = INITIAL_STATE, action ) => {
                 shop: shop
             }
         }
-        break;
+        default: return state;
     }
 }
+
+export default shopifystoreReducer;
