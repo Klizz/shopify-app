@@ -1,0 +1,5 @@
+const SAVE_SHOPIFY_DATA = 'SAVE_SHOPIFY_DATA'
+
+export default {
+    SAVE_SHOPIFY_DATA
+}

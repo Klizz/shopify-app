@@ -6,6 +6,8 @@ import '@shopify/polaris/styles.css'
 import translations from '@shopify/polaris/locales/en.json'
 import Cookies from 'js-cookie'
 
+const API_URL = 'http://localhost:3001/api/v1'
+
 import axios from 'axios'
 axios.defaults.baseURL = API_URL
 
@@ -15,7 +17,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider as ReduxProvider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import reducer from '../store'
-import { composeWithDevTools } from redux-devtools-extension
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 // CONSTRUIR STORE
 const middlewares = [thunk]
