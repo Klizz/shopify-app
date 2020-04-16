@@ -1,82 +1,93 @@
 import {
   Page,
-  Layout,
-  FooterHelp,
-  Card,
-  Button,
   Form,
   FormLayout,
-  TextField
+  TextField,
+  Layout,
+  Stack,
+  Button
 } from "@shopify/polaris";
-import { TitleBar, ResourcePicker } from "@shopify/app-bridge-react";
-import { useState, Component } from "react";
+import { useState } from "react";
 
 const Registro = () => {
-  const [shop, setStore] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [representante, setRepresentante] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [card, setCard] = useState();
+  const [tarjeta, setTarjeta] = useState("");
+
+  const [store, setStore] = useState({});
+
+  const handleSubmit = () => {
+    console.log(
+      "Datos guardados",
+      nombre,
+      representante,
+      telefono,
+      email,
+      tarjeta
+    );
+  };
 
   return (
-    <Page>
-      <TitleBar
-        primaryAction={{
-          content: "Hola soy un primary actions"
-        }}
-      />
-      <Layout>
-        <Card title="Registro" sectioned>
-          <Form>
-            <FormLayout>
+    <Page fullWidth title={"Registro"}>
+      <Form onSubmit={handleSubmit}>
+        <FormLayout>
+          <Layout>
+            <Layout.Section oneHalf>
               <TextField
+                value={nombre}
+                onChange={valor => setNombre(valor)}
                 label="Nombre de la tienda"
                 type="text"
-                name="store"
-                onChange={valor => {
-                  setStore = valor;
-                }}
+                fullWidth
               />
+
               <TextField
-                label="Email"
-                type="email"
-                name="email"
-                onChange={valor => {
-                  setEmail = valor;
-                }}
-              />
-              <TextField
+                value={representante}
+                onChange={valor => setRepresentante(valor)}
                 label="Nombre del representante legal"
                 type="text"
-                name="name"
-                onChange={valor => {
-                  setName = valor;
-                }}
+                fullWidth
               />
+
               <TextField
+                value={telefono}
+                onChange={valor => setTelefono(valor)}
+                label="Teléfono"
+                type="text"
+                fullWidth
+              />
+            </Layout.Section>
+
+            <Layout.Section oneHalf>
+              <TextField
+                value={email}
+                onChange={valor => setEmail(valor)}
+                label="Email"
+                type="text"
+                fullWidth
+              />
+
+              <TextField
+                value={tarjeta}
+                onChange={valor => setTarjeta(valor)}
                 label="Tarjeta de credito"
                 type="text"
-                name="card"
-                helpText="Opcional"
-                onChange={valor => {
-                  setCard = valor;
-                }}
+                fullWidth
               />
-              <TextField
-                label="Telefono"
-                type="tel"
-                name="phone"
-                onChange={valor => {
-                  setPhone = valor;
-                }}
-              />
-              <Button>Guardar</Button>
-            </FormLayout>
-          </Form>
-        </Card>
-      </Layout>
-      <FooterHelp>Soy el footer</FooterHelp>
+
+              <Stack distribution="trailing">
+                <Button primary submit>
+                  Guardar
+                </Button>
+              </Stack>
+            </Layout.Section>
+          </Layout>
+        </FormLayout>
+      </Form>
     </Page>
   );
 };
+
 export default Registro;
