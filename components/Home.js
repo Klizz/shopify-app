@@ -19,6 +19,7 @@ const img = "https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg";
 const Index = ({
   shop_is_loading,
   shop_exists,
+  shop,
   shop_status,
   getShopifyData
 }) => {
