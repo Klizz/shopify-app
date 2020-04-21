@@ -6,7 +6,7 @@ import "@shopify/polaris/styles.css";
 import translations from "@shopify/polaris/locales/en.json";
 import Cookies from "js-cookie";
 
-const API_URL = 'API_URL'
+const API_URL = 'http://localhost:3001/api/v1'
 
 import axios from "axios";
 axios.defaults.baseURL = API_URL;
@@ -40,7 +40,7 @@ class MyApp extends App {
     return (
       <React.Fragment>
         <Head>
-          <title>APP</title>
+          <title>Fernando App</title>
           <meta charSet="utf-8" />
         </Head>
 

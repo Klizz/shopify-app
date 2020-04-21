@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import Home from '../components/Home'
 
 import { shopifystoreOperations } from '../store/shopifystore'
+import {variantOperations} from '../store/variant'
 
 const mapStateToProps = state=>({
     shop_is_loading: state.shopify.shop_is_loading,

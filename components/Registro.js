@@ -1,44 +1,83 @@
 import {
-    Page,
-    Form,
-    FormLayout,
-    TextField,
-    Layout,
-    Stack,
-    Button
-  } from "@shopify/polaris";
-  import { useState } from "react";
-  
-  const Registro = ({
-    shop_is_loading,
-    shop_exists,
-    shop,
-    shop_error,
+  Page,
+  Form,
+  FormLayout,
+  TextField,
+  Layout,
+  Stack,
+  Button,
+  Spinner,
+  Toast,
+  Frame
+} from "@shopify/polaris";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
-    createShop,
-    clearError
-  }) => {
+const Registro = ({
+  shop_is_loading,
+  shop_exists,
+  shop,
+  shop_error,
 
-    const [nombre, setNombre] = useState(shop.name);
-    const [representante, setRepresentante] = useState(shop.shop_owner);
-    const [telefono, setTelefono] = useState(shop.phone);
-    const [email, setEmail] = useState(shop.customer_email);
-    const [tarjeta, setTarjeta] = useState("");
-  
-    const [store, setStore] = useState({});
-  
-    const handleSubmit = () => {
-      console.log(
-        "Datos guardados",
-        nombre,
-        representante,
-        telefono,
-        email,
-        tarjeta
-      );
+  createShop,
+  clearError
+}) => {
+  const router = useRouter();
+
+  const [nombre, setNombre] = useState(shop.name);
+  const [representante, setRepresentante] = useState(shop.shop_owner);
+  const [telefono, setTelefono] = useState(shop.phone);
+  const [email, setEmail] = useState(shop.customer_email);
+  const [tarjeta, setTarjeta] = useState("");
+
+  const handleSubmit = () => {
+    console.log(
+      "Datos guardados",
+      nombre,
+      representante,
+      telefono,
+      email,
+      tarjeta
+    );
+
+    const payload = {
+      name: nombre,
+      email,
+      shop_owner: representante,
+      telephone: telefono,
+      shopify_shop_id: shop.id,
+      myshopify_domain: shop.myshopify_domain
     };
-  
-    return (
+    createShop(payload);
+  };
+
+  const handleToastDismiss = () => {
+    clearError();
+  };
+
+  let toast = null;
+  if (shop_error !== null) {
+    toast = <Toast content={shop_error} onDismiss={handleToastDismiss} />;
+  }
+
+  let button = (
+    <Button primary submit>
+      Guardar
+    </Button>
+  );
+
+  if (shop_is_loading) {
+    button = (
+      <Spinner accessibilityLabel="Spinner example" size="large" color="teal" />
+    );
+  }
+
+  if (shop_exists) {
+    router.push("/");
+  }
+
+  return (
+    <Frame>
       <Page fullWidth title={"Registro"}>
         <Form onSubmit={handleSubmit}>
           <FormLayout>
@@ -51,7 +90,7 @@ import {
                   type="text"
                   fullWidth
                 />
-  
+
                 <TextField
                   value={representante}
                   onChange={valor => setRepresentante(valor)}
@@ -59,7 +98,7 @@ import {
                   type="text"
                   fullWidth
                 />
-  
+
                 <TextField
                   value={telefono}
                   onChange={valor => setTelefono(valor)}
@@ -68,7 +107,7 @@ import {
                   fullWidth
                 />
               </Layout.Section>
-  
+
               <Layout.Section oneHalf>
                 <TextField
                   value={email}
@@ -77,7 +116,7 @@ import {
                   type="text"
                   fullWidth
                 />
-  
+
                 <TextField
                   value={tarjeta}
                   onChange={valor => setTarjeta(valor)}
@@ -85,19 +124,17 @@ import {
                   type="text"
                   fullWidth
                 />
-  
-                <Stack distribution="trailing">
-                  <Button primary submit>
-                    Guardar
-                  </Button>
-                </Stack>
+
+                <Stack distribution="trailing">{button}</Stack>
               </Layout.Section>
             </Layout>
           </FormLayout>
         </Form>
       </Page>
-    );
-  };
-  
-  export default Registro;
-  
+
+      {toast}
+    </Frame>
+  );
+};
+
+export default Registro;

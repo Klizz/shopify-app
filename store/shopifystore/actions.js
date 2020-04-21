@@ -1,3 +1,4 @@
+//Acciones puras no async
 import types from "./types";
 
 const saveShopifyData = shop => {
@@ -10,45 +11,64 @@ const saveShopifyData = shop => {
 const shopExists = data_store => {
   return {
     type: types.SHOP_EXISTS,
-    shop
+    data_store: data_store
   };
 };
 
-const shopNotExists = shop => {
+const shopNotExists = () => {
   return {
-    type: types.SHOP_NOT_EXISTS,
-    shop
+    type: types.SHOP_NOT_EXISTS
   };
 };
 
-const isLoading = shop => {
+const isLoading = () => {
   return {
-    type: types.SHOP_IS_LOADING,
-    shop
+    type: types.SHOP_IS_LOADING
   };
 };
 
-const isNotLoading = shop => {
+const isNotLoading = () => {
   return {
-    type: types.SHOP_IS_NOT_LOADING,
-    shop
+    type: types.SHOP_IS_NOT_LOADING
   };
 };
 
-const setError = shop => {
+const setError = error => {
   return {
     type: types.SET_ERROR,
-    shop
+    error
   };
 };
 
-const clearError = error => {
+const clearError = () => {
   return {
-    type: types.CLEAR_ERROR,
-    shop
+    type: types.CLEAR_ERROR
+  };
+};
+
+const updatePruebaTitulo = prueba_titulo => {
+  return {
+    type: types.UPDATE_PRUEBA_TITULO,
+    prueba_titulo
+  };
+};
+
+const updatePruebaNieto = prueba_nieto => {
+  return {
+    type: types.UPDATE_PRUEBA_NIETO,
+    prueba_nieto
   };
 };
 
 export default {
-  saveShopifyData
+  saveShopifyData,
+  shopExists,
+  shopNotExists,
+  isLoading,
+  isNotLoading,
+  setError,
+  clearError,
+
+  updatePruebaTitulo,
+  updatePruebaNieto
 };

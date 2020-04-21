@@ -1,3 +1,4 @@
+//import { TextStyle } from '@shopify/polaris'
 import {
   TextStyle,
   Page,
@@ -6,30 +7,70 @@ import {
   FooterHelp,
   Link,
   Card,
-  Button,
   Stack,
+  Button,
   Spinner
 } from "@shopify/polaris";
 import { TitleBar, ResourcePicker } from "@shopify/app-bridge-react";
 import { useState, useEffect } from "react";
-import Axios from "axios";
+import { useRouter } from "next/router";
 
 const img = "https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg";
 
 const Index = ({
   shop_is_loading,
   shop_exists,
-  shop,
   shop_status,
-  getShopifyData
+  getShopifyData,
+  reviewVariants
 }) => {
+  //Se ejecuta 1 sola vez al montarse el componente
   useEffect(() => {
     getShopifyData();
-  }, []); //Se ejecuta 1 sola vez al montarse el componente
+  }, []);
+
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const handleSelection = resources => {
     setOpen(false);
+
+    let payload = [];
+    resources.selection.forEach(product => {
+      const { id: product_id, title: product_title, images, vendor } = product;
+
+      const variants = product.variants.map(variant => {
+        const {
+          id: variant_id,
+          title: variant_title,
+          weight: variant_weight,
+          weightUnit: variant_unit,
+          price: variant_price
+        } = variant;
+
+        return {
+          product_id,
+          product_title,
+          product_image: images.length > 0 ? images[0].originalSrc : undefined,
+          vendor,
+
+          variant_id,
+          variant_title,
+          variant_weight,
+          variant_unit,
+          variant_price,
+          variant_recommended_price: 0,
+          tax: 0,
+          status: "Calculando"
+        };
+      });
+
+      payload = [...payload, ...variants];
+    });
+
+    console.log("payload", payload);
+
+    reviewVariants({ variants: payload });
     console.log(resources);
   };
 
@@ -37,12 +78,13 @@ const Index = ({
     <Spinner accessibilityLabel="Spinner example" size="large" color="teal" />
   );
 
+  //if(!shopify_is_loading)
   if (shop_is_loading === false) {
     accionBotones = (
       <Card sectioned>
         <Button
           fullWidth={true}
-          url={"/registro"}
+          /*url={'/registro'}*/ onClick={() => router.push("/registro")}
           disabled={shop_exists === true}
         >
           Registro
@@ -50,28 +92,19 @@ const Index = ({
         <Button
           fullWidth={true}
           onClick={() => setOpen(true)}
-          disabled={shop_exists === false}
+          disabled={shop_exists === false || shop_status === "en_revision"}
         >
-          Reg
+          Enviar productos a revisión
         </Button>
       </Card>
     );
   }
 
   return (
-    <Page>
-      <Link>
-        <a href="otro_layout">Otro layout</a>
-      </Link>
-      <Link>
-        <a href="home">Home</a>
-      </Link>
-      <Link>
-        <a href="shopify">shopify</a>
-      </Link>
+    <Page fullWidth>
       <TitleBar
         primaryAction={{
-          content: "Hola soy un primary actions"
+          content: "Hola soy un primary ---"
         }}
       />
       <ResourcePicker
@@ -81,6 +114,7 @@ const Index = ({
         onSelection={handleSelection}
         onCancel={() => setOpen(false)}
       />
+
       <Layout>
         <Layout.Section>
           <Card title="Home" sectioned>
@@ -115,19 +149,12 @@ const Index = ({
             </Stack>
           </Card>
         </Layout.Section>
-        <Layout.Section secondary>
-          <Card sectioned>
-            <Button fullWidth={true} url={"/registro"}>
-              Registro
-            </Button>
-            <Button fullWidth={true} onClick={() => setOpen(true)}>
-              Enviar productos a revisión
-            </Button>
-          </Card>
-        </Layout.Section>
+        <Layout.Section secondary>{accionBotones}</Layout.Section>
       </Layout>
 
-      <FooterHelp>Soy el footer</FooterHelp>
+      <FooterHelp>
+        <Link>Soy el footer</Link>
+      </FooterHelp>
     </Page>
   );
 };

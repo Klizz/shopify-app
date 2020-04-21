@@ -1,3 +1,12 @@
 import types from './types'
 
-const setVariants = variants
+const setVariants = (variants)=>{
+    return {
+        type: types.SET_VARIANTS,
+        variants        
+    }
+}
+
+export default {
+    setVariants,
+}
