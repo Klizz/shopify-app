@@ -9,6 +9,7 @@ import {
   Card,
   Stack,
   Button,
+  Subheading,
   Spinner
 } from "@shopify/polaris";
 import { TitleBar, ResourcePicker } from "@shopify/app-bridge-react";
@@ -84,7 +85,7 @@ const Index = ({
       <Card sectioned>
         <Button
           fullWidth={true}
-          /*url={'/registro'}*/ onClick={() => router.push("/registro")}
+          onClick={() => router.push("/registro")}
           disabled={shop_exists === true}
         >
           Registro
@@ -102,11 +103,15 @@ const Index = ({
 
   return (
     <Page fullWidth>
+      <a href="/otro_layout">Otro layout</a><br/>
+      <a href="/products">products</a><br/>
+      <a href="/registro">Registro</a><br/>
       <TitleBar
         primaryAction={{
           content: "Hola soy un primary ---"
         }}
-      />
+      >
+      </TitleBar>
       <ResourcePicker
         resourceType="Product"
         showVariants={false}

@@ -6,9 +6,6 @@ const INITAL_STATE = {
   shop_is_loading: true,
   shop_error: null,
   shop_status: null,
-
-  prueba_titulo: "Fernando",
-  prueba_nieto: "Soy Nieto"
 };
 
 const shopifystoreReducer = (state = INITAL_STATE, action) => {

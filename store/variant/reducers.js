@@ -12,7 +12,8 @@ const variantReducer = (state = INITAL_STATE, action) => {
       return {
         ...state,
         variants,
-        variant_is_loading: false
+        variant_is_loading: false,
+        variants_with_conflict: variants.filter(element => element.stauts==='Conflicto').map(element => { return { ...element, price_selected: null } })
       };
     }
 

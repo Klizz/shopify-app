@@ -7,7 +7,9 @@ import {
   Avatar,
   Card
 } from "@shopify/polaris";
+
 import { useEffect } from "react";
+import ResolveConflict from '../containers/ResolveConflict'
 
 const Products = ({
   getShopifyData,
@@ -34,6 +36,22 @@ const Products = ({
       status,
       final_duty = 0
     } = item;
+
+    let columnA = null
+    let columnB = null
+    let statusColor = null
+
+    switch(status) {
+        case 'Calculando':
+            statusColor = 'attention';
+            break;
+        case 'Sin conflicto' :
+        case 'Completo':
+            statusColor = 'success';
+            columnA = `$${final_price} Subtotal`
+            columnB = `$${final_duty} Impuestos`
+    }
+
 
     const media = <Avatar customer size="medium" source={image_url} />;
 
