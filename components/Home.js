@@ -37,8 +37,14 @@ const Index = ({
     setOpen(false);
 
     let payload = [];
+
     resources.selection.forEach(product => {
-      const { id: product_id, title: product_title, images, vendor } = product;
+      const {
+        id: product_id,
+        title: product_title,
+        images,
+        vendor
+      } = product;
 
       const variants = product.variants.map(variant => {
         const {
@@ -75,11 +81,8 @@ const Index = ({
     console.log(resources);
   };
 
-  let accionBotones = (
-    <Spinner accessibilityLabel="Spinner example" size="large" color="teal" />
-  );
+  let accionBotones = <Spinner accessibilityLabel="Spinner example" size="large" color="teal" />
 
-  //if(!shopify_is_loading)
   if (shop_is_loading === false) {
     accionBotones = (
       <Card sectioned>
@@ -106,12 +109,12 @@ const Index = ({
       <a href="/otro_layout">Otro layout</a><br/>
       <a href="/products">products</a><br/>
       <a href="/registro">Registro</a><br/>
+
       <TitleBar
         primaryAction={{
-          content: "Hola soy un primary ---"
+          content: "Hola soy un primary"
         }}
-      >
-      </TitleBar>
+      />
       <ResourcePicker
         resourceType="Product"
         showVariants={false}
@@ -125,36 +128,17 @@ const Index = ({
           <Card title="Home" sectioned>
             <Stack>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                eleifend metus non vestibulum faucibus. Duis interdum vel arcu
-                imperdiet tempus. Mauris nec suscipit nisi. Sed malesuada
-                vehicula diam, sit amet ornare libero rutrum nec. Nam ultricies
-                aliquet mi id mattis. Proin iaculis sem mi, id elementum felis
-                facilisis id. Mauris semper, quam non hendrerit sollicitudin,
-                diam diam lacinia ante, a elementum eros ipsum non nulla. Nullam
-                et lacus in dui ultrices ullamcorper. Vivamus consequat tortor
-                eu risus mattis, imperdiet iaculis arcu porta. Nulla neque
-                velit, ullamcorper vel imperdiet non, volutpat a orci.
-                Suspendisse purus dolor, vestibulum et orci eget, convallis
-                tincidunt nisi. Suspendisse in cursus est. In quis urna nec eros
-                volutpat faucibus. Vivamus malesuada metus et erat vulputate
-                semper.
+              Cosmic fugue permanence of the stars explorations hydrogen atoms a still more glorious dawn awaits bits of moving fluff? Circumnavigated the ash of stellar alchemy with pretty stories for which there's little good evidence radio telescope of brilliant syntheses shores of the cosmic ocean. Encyclopaedia galactica hearts of the stars hearts of the stars the only home we've ever known from which we spring the carbon in our apple pies
               </p>
-
               <p>
-                Aliquam suscipit interdum nisl. Integer maximus erat non iaculis
-                vulputate. Nulla lacus est, consequat a hendrerit at, posuere
-                feugiat neque. Mauris lectus sem, malesuada id est quis,
-                vehicula tempor magna. Mauris pharetra sed velit sed lobortis.
-                Aliquam at risus euismod, convallis turpis vitae, cursus felis.
-                Mauris commodo ex venenatis nisi imperdiet, eu iaculis libero
-                commodo. Quisque scelerisque dolor eget placerat pharetra. Nulla
-                iaculis quam tincidunt enim tempus malesuada.
+              The sky calls to us something incredible is waiting to be known two ghostly white figures in coveralls and helmets are soflty dancing ship of the imagination cosmos paroxysm of global death. Network of wormholes laws of physics laws of physics Cambrian explosion with pretty stories for which there's little good evidence with pretty stories for which there's little good evidence. Network of wormholes stirred by starlight star stuff harvesting star light vastness is bearable only through love with pretty stories for which there's little good evidence take root and flourish and billions upon billions upon billions upon billions upon billions upon billions upon billions.
               </p>
             </Stack>
           </Card>
         </Layout.Section>
-        <Layout.Section secondary>{accionBotones}</Layout.Section>
+        <Layout.Section secondary>
+          {accionBotones}
+        </Layout.Section>
       </Layout>
 
       <FooterHelp>

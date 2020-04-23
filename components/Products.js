@@ -5,14 +5,19 @@ import {
   ResourceList,
   ResourceItem,
   Avatar,
-  Card
+  Card,
+  Stack,
+  Badge,
+  TextStyle,
+  Button
 } from "@shopify/polaris";
 
 import { useEffect } from "react";
-import ResolveConflict from '../containers/ResolveConflict'
+import ResolveConflict from "../containers/ResolveConflict";
 
 const Products = ({
   getShopifyData,
+  solveVariant,
 
   variant_is_loading,
   variants
@@ -31,35 +36,57 @@ const Products = ({
     const {
       _id: id,
       product_title: title,
+      variant_title,
       product_image: image_url,
       final_price = 0,
       status,
-      final_duty = 0
+      tax_calculated: final_duty
     } = item;
 
-    let columnA = null
-    let columnB = null
-    let statusColor = null
+    let columnA = null;
+    let columnB = null;
+    let statusColor = null;
 
-    switch(status) {
-        case 'Calculando':
-            statusColor = 'attention';
-            break;
-        case 'Sin conflicto':
-        case 'Completo':
-            statusColor = 'success';
-            columnA = `$${final_price} Subtotal`
-            columnB = `$${final_duty} Impuestos`
-            break
-        case 'Conflicto':
-            statusColor: 'warning'
-            break;
+    switch (status) {
+      case "Calculando":
+        statusColor = "attention";
+        break;
+      case "Sin conflicto":
+      case "Completo":
+        statusColor = "success";
+        columnA = `$${final_price} Subtotal`;
+        columnB = `$${final_duty} Impuestos`;
+        break;
+      case "Conflicto":
+        statusColor: "warning";
+        columnA = (
+          <Button size="slim" onClick={() => solveVariant(id)}>
+            Resolver
+          </Button>
+        );
+        break;
     }
-
 
     const media = <Avatar customer size="medium" source={image_url} />;
 
-    return <ResourceItem id={id} media={media}></ResourceItem>;
+    return (
+      <ResourceItem id={id} media={media}>
+        <Stack>
+          <Stack.Item fill>
+            <h3>
+              <TextStyle variation="strong">
+                {title} - {variant_title}
+              </TextStyle>
+            </h3>
+          </Stack.Item>
+          <Stack.Item>{columnA}</Stack.Item>
+          <Stack.Item>{columnB}</Stack.Item>
+          <Stack.Item>
+            <Badge status={statusColor}>{status}</Badge>
+          </Stack.Item>
+        </Stack>
+      </ResourceItem>
+    );
   };
 
   return (
@@ -73,6 +100,7 @@ const Products = ({
           renderItem={renderItem}
         />
       </Card>
+      <ResolveConflict />
 
       <FooterHelp>Soy el footer</FooterHelp>
     </Page>

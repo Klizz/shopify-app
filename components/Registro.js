@@ -131,7 +131,6 @@ const Registro = ({
           </FormLayout>
         </Form>
       </Page>
-
       {toast}
     </Frame>
   );
