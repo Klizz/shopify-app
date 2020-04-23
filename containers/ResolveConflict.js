@@ -21,14 +21,14 @@ const ResolveConflict = ({
     price_selected: null
   });
   useEffect(() => {
-      const v = variants_with_conflict
-      let p = { hasNext: false, hasPrevious: false, price_selected }
-      if(v.length < 1) return setHasPaginator(p)
-      const i = v.findIndex(element => element.id === id)
-      if(i > 0) p.hasPrevious = true
-      if(i > v.length - 1) p.hasNext = true
-      setHasPaginator(p)
-  }, [])
+    const v = variants_with_conflict;
+    let p = { hasNext: false, hasPrevious: false, price_selected };
+    if (v.length < 1) return setHasPaginator(p);
+    const i = v.findIndex(element => element.id === id);
+    if (i > 0) p.hasPrevious = true;
+    if (i > v.length - 1) p.hasNext = true;
+    setHasPaginator(p);
+  }, []);
   const {
     id,
     product_image: image_url,
@@ -36,8 +36,8 @@ const ResolveConflict = ({
     variant_price: price,
     variant_recommended_price: recommended_price,
     tax_calculated: calculated_duty = 0,
-    calculated_duty_original = 0
-    // price_selected
+    calculated_duty_original = 0,
+    price_selected = null
   } = variant_in_modal;
 
   let pagination = null;
@@ -72,12 +72,15 @@ const ResolveConflict = ({
   const handleClose = () => {
     closeModal();
   };
+
+  const currentVariant = variants_with_conflict.findIndex(e => e.id === id) + 1;
+
   return (
     <Modal
       large
       open={modal_open}
       onClose={handleClose}
-      title={"Resolver conflicto"}
+      title={`Resolver conflicto ${currentVariant} de ${variants.length}`}
     >
       <TextContainer>
         <div>Texto</div>
