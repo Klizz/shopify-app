@@ -45,11 +45,15 @@ const Products = ({
         case 'Calculando':
             statusColor = 'attention';
             break;
-        case 'Sin conflicto' :
+        case 'Sin conflicto':
         case 'Completo':
             statusColor = 'success';
             columnA = `$${final_price} Subtotal`
             columnB = `$${final_duty} Impuestos`
+            break
+        case 'Conflicto':
+            statusColor: 'warning'
+            break;
     }
 
 
